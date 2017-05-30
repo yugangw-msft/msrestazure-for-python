@@ -373,12 +373,6 @@ class TestInteractiveCredentials(unittest.TestCase):
         with self.assertRaises(AuthenticationError) as cm:
             session = credentials.signed_session()
 
-        def expired():
-            raise adal.AdalError("Too late", {'error_description': "AADSTS70008: Expired"})
-        credentials = AdalAuthentication(expired)
-        with self.assertRaises(TokenExpiredError) as cm:
-            session = credentials.signed_session()
-
         def connection_error():
             raise ConnectionError("Plug the network")
         credentials = AdalAuthentication(connection_error)
